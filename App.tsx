@@ -4,6 +4,9 @@ import { StyleSheet } from 'react-native'
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import HomeScreen from './screens/Home'
+import { createTheme, ThemeProvider } from '@rneui/themed'
+
+const theme = createTheme()
 
 function App() {
   const Stack = createNativeStackNavigator()
@@ -11,9 +14,11 @@ function App() {
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
-      <Stack.Navigator>
-        <Stack.Screen name='Shop App' component={HomeScreen} />
-      </Stack.Navigator>
+      <ThemeProvider theme={theme}>
+        <Stack.Navigator>
+          <Stack.Screen name='Shop App' component={HomeScreen} />
+        </Stack.Navigator>
+      </ThemeProvider>
     </NavigationContainer>
   )
 }
