@@ -1,11 +1,28 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView } from 'react-native'
+import ProductCard from '../components/ProductCard'
+import { fetchProductsList } from '../core/product/fetchProducts'
+import { TProduct } from '../core/product/type'
 
 function HomeScreen() {
+  const [products, setProducts] = useState<TProduct[]>()
+
+  const loadProducts = async () => {
+    const productsResponse = await fetchProductsList()
+    setProducts(productsResponse)
+  }
+
+  useEffect(() => {
+    loadProducts()
+  }, [])
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home</Text>
-    </View>
+    <ScrollView style={{ flex: 1}}>
+      {
+        products?.length && 
+        products.map(product => <ProductCard key={product.id} product={product} />)
+      }
+    </ScrollView>
   )
 }
 
