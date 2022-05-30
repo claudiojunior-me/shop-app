@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Image } from 'react-native'
 import { TProduct } from '../../core/product/type'
 import NumberFormat from 'react-number-format'
 import { Button, Card, Text } from '@rneui/themed'
+import { useCart } from '../../contexts/cart'
 
 type TProductCardProps = {
   product: TProduct
 }
 
 function ProductCard({ product }: TProductCardProps) {
+  const { addCartItem } = useCart()
+  const [isLoading, setLoading] = useState<boolean>(false)
+
   if (!product.id) {
     return null
+  }
+
+  const addProductToCart = async () => {
+    setLoading(true)
+    await addCartItem(product)
+    setLoading(false)
   }
 
   return (
@@ -33,10 +43,11 @@ function ProductCard({ product }: TProductCardProps) {
         />
 
         <Button
-          onPress={() => alert('click')}
+          onPress={addProductToCart}
           title='Add'
           titleProps={{}}
           titleStyle={{ marginHorizontal: 5 }}
+          loading={isLoading}
         />
       </View>
     </Card>
