@@ -55,10 +55,6 @@ function CartProvider({ children }: TCartProviderProps) {
     }
   }
 
-  useEffect(() => {
-    console.log(cart)
-  }, [cart])
-
   return (
     <CartContext.Provider value={{
       isLoadingCart,
