@@ -25,4 +25,8 @@ describe('ProductCard', () => {
     expect(queryByTestId('product-card')).not.toBeNull()
     expect(queryByText(PRODUCT_MOCK.title)).not.toBeNull()
   })
+
+  describe('cart action', () => {
+    it('should add to the cart', async () => {})
+  })
 })
